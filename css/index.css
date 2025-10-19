@@ -28,8 +28,6 @@ h2,h3, h4 {
 header{
   background-color: #A2BEA2;
   color:#FFFAFA;
-  /* z-index: 1000; */
-  /* box-shadow: 0 2px 5px rgba(0,0,0,0.2); */
 }
 
 .header-content-wrapper {
@@ -50,7 +48,7 @@ nav a:hover, nav a:focus-visible {
   background-color:#FFFAFA;
   color: #708090;
 }
-
+/* contact form styles  */
 #contact-form-section {
   background-color: #fffafc;
 
@@ -60,7 +58,7 @@ nav a:hover, nav a:focus-visible {
   font-weight: bold;
 }
 
-.contact-form input[type= "text"]
+/* .contact-form input[type= "text"] */
 .contact-form button[type = "submit"] {
   background-color: #F08080;
   color:#1b1616;
@@ -69,6 +67,43 @@ nav a:hover, nav a:focus-visible {
 .contact-form button[type ="submit"]:hover,
 .contact-form button[type ="submit"]:focus-visible {
   background-color: #E66A6A;
+}
+.recipe-paragraph{
+  font-size: 0.8em;
+}
+
+.postcode-search-group button {
+  background-color: #A2BEA2;
+  color: black;
+}
+
+.long-lat-button {
+  background-color: #adafb2;
+  color: black;
+  font-size:1em;
+  font-weight: 600;
+}
+
+.long-lat-button:hover {
+  background-color: #e6d1e5;
+  border: #332e53;
+}
+.long-lat-button:disabled{
+  background-color:#f7f9fc;
+  font-weight: normal;
+}
+
+#weather-result button {
+  background-color: rgb(156, 156, 250);
+  color: rgb(11, 19, 22);
+}
+#weather-result button:hover {
+  background-color: lightcoral;
+}
+#weather-result li{
+  background-color: #f7f7f7;
+  font-size: 1.1rem;
+  font-weight: 500;
 }
 
 footer { 
@@ -80,7 +115,7 @@ footer {
 /* Layout --------------------------*/
 
 body {
-  margin:2em;
+  margin:0;
 }
 
 .inner-body {
@@ -90,6 +125,8 @@ body {
 
 main {
   padding:1em;
+  padding-left: 1em;
+  padding-right: 1em;
   max-width: 768px;
   margin: 0 auto;
   line-height: 1.6;
@@ -102,6 +139,7 @@ img{
   width:70%;
   max-width: 100%; 
   height: auto;
+  margin: 0 3em;
 }
 
 header {
@@ -118,9 +156,9 @@ header {
   /* need 3 columns to have logo, h1, empty space */
   grid-template-columns: 1fr auto 1fr;
   align-items:center;
-  /* justify-content: center; */
   padding: 0.5em 0;
   gap: 1em;
+    /* justify-content: center; */
 }
 
 .header-content-wrapper h1{
@@ -171,16 +209,6 @@ nav a:hover, nav a:focus-visible {
   border-radius: 5px;
 }
 
-footer {
-  text-align:center;
-  padding: 1em 0;
-  margin-top: auto;
-}
-
-footer p {
-  margin: 0;
-}
-
 .recipe-layout {
   display:flex;
   flex-direction: column;
@@ -215,7 +243,7 @@ article {
   padding: 2em;
   border-radius: 8px;
   text-align: center;
-  /* box-shadow: 0 4px 6px rgba(0,0,0,0.1); */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 
 }
 
@@ -236,8 +264,83 @@ article {
   padding:0.8em;
   border: 1px solid #A2BEA2;
   border-radius: 7px;
-  resize: vertical;
-  
+  resize: vertical; 
+}
+
+#food-safety{
+  margin:0.75em;
+}
+
+/*-----weather page styling----*/
+
+.postcode-search-group {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1 em auto;
+  max-width: 400px;
+}
+.postcode-search-group input[type ="text"]{
+  width: 100%;
+  max-width: 250px;
+  padding: 0.8em;
+  border: 1px solid #A2BEA2;
+  border-radius: 7px;
+  flex-grow:1;
+}
+.postcode-search-group button {
+  padding: 0.8em 1.2em;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+}
+/*radio buttons for F and C temp units*/
+.radio-button-group {
+  display:flex;
+  justify-content: center;
+  gap: 1em;
+  margin-block-end: 1.5em;
+}
+.long-lat-button {
+  display:block;
+  margin: 1em auto;
+  padding: 0.625em 1.25em;
+  border-radius: 8px;
+  cursor:pointer;
+}
+.long-lat-button:disabled {
+  cursor:default;
+}
+
+#weather-result button {
+  padding: 0.5em 0.875em;
+  border:none;
+  border-radius:8px;
+  cursor: pointer;
+  margin-top: .375em;
+}
+
+#weather-result li{
+  padding: 0.625em;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+#weather-result ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+ }
+
+footer {
+  text-align:center;
+  padding: 1em 0;
+  margin-top: auto;
+}
+
+footer p {
+  margin: 0;
 }
 /* ---@media query Laptop screen minimum: 768px a */
 @media (min-width:768px) {
@@ -254,5 +357,46 @@ article {
   h1{
     font-size: 3em;
   }
-
+  h2{
+    font-size: 2.0em;
+  }
+   /* Navigation */
+  nav ul {
+    gap: 1.5em;
+  }
+  /* Home Page changes */
+  /* form section */
+  .form-image-container {
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+    align-items: flex-start;
+  }
+  .form-image-container figure {
+    flex:1;
+  }
+  #contact-form-section {
+    flex:1;
+    margin-top: 0;
+  }
+  /* Recipe page */
+  article {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5em;
+    align-items:start;
+    padding: 1.5em 1.5em;
+  }
+  /* move recipe image to left order2 and text to right order:1 */
+  .recipe-image {
+    /* (moves image to the left ) */
+    order:1;
+    margin-top: 5em;
+  }
+  .recipe-text {
+    order:1;
+    margin-top:-21em;
+  }
 }
+
+

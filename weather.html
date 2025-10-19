@@ -14,7 +14,7 @@
         <img src="images/AIgeneratedModel.jpg" alt = "female baker created with AI. She has a headband that is dark bluish purple and is smiling" class = "header-logo">
         <figcaption>Image generated with Canva's AI</figcaption>
       </div>
-      <h1>Today's Weather for Central Maryland</h1>
+      <h1 id ="weather-title"></h1>
     </div>
     <nav>
       <ul>
@@ -25,20 +25,52 @@
     </nav>
   </header>
   <main class="weather-container">
-    <h2 id="weather-title">Current Weather</h2>
-    <p>Ginger will share the current weather for today in the Maryland area. Feel free to look up the Weather for your local region. It's important to take into account your current weather for your recipes. If it's too hot in your environment, your chocolate treats may melt outside or in a non-cooled room. Ginger wants these recipes to be fun, not messy 😀 </p>
-
+    <!-- <h2 id="weather-title">Current Weather</h2> -->
+    <p>
+      Ginger will share the current weather for today. Click below on one of the weather variables for the weather in Towson, MD. To personalize your recipe selection, you will need to consider your local weather conditions. Remember, your current weather conditions are important! If it's too hot, your chocolate treats may melt quickly. Ginger wants these recipes to be fun, not messy 😀
+    </p>
+    <p>Here's how to get your custom details: 
+      <ul>
+        <li>Enter your zipcode and click the "Find Location Coordinates" button </li>
+        <li>Then you can click the "Coordinates" button to see your coordinates.</li>
+        <li>Then click each of the three buttons (Minimum Temperature, Maximum Temperature, Relative Humidity) for local weather information to customize your project</li>
+      </ul>
+    </p>
+    <div class="postcode-search-group">
+      <input type ="text" id = "postcode-input" placeholder="Enter your zipcode" maxlength = "5">
+      <button type = "button" onclick="zipcodeSearch()">Find Location Coordinates</button>
+      <button type = "button" onclick="deleteZipcode()">Delete Zipcode</button>
+    </div>
+    <p id = "location-status" class = "status-message">Default location is Towson, MD. Please enter a zipcode to begin</p>
+    <div id="display-coordinates"></div>
+    <div class = "weather-unit-button-section">
+      <h3>Preferred Temperature Unit</h3>
+      <div id="temp-unit-selection" class = "radio-button-group">
+        <!-- Farenheit button. Default is in Farenheit but also can switch to Celsius if user prefers -->
+        <input type="radio" id="fahrenheit-unit" name="temperature_unit" value="fahrenheit" checked class="hidden" onchange = "restartFetch()">
+        <label for="fahrenheit-unit" class="unit-label">Fahrenheit (°F)</label><br>
+        <!-- Celsius button.  -->
+        <!-- the name of the group of buttons must be the same, value is unit of measurement -->
+        <input type = "radio" id = "celsius-unit" name = "temperature_unit" value = "celsius" class = "hidden" onchange = "restartFetch()">
+            <label for="celsius-unit" class="unit-label">Celsius (°C)</label><br>
+      </div>
+    </div>
+    <!-- buttons for weather variables -->
     <div id ="weather-result">
       <ul>
-        <li id="max-temp"></li>
-        <li id="min-temp"></li>
-        <li id="humidity"></li>
+        <li id="max-temp">
+          <button type="button">Click here for Maximum temperatures</button>
+        </li>
+        <li id="min-temp">
+          <button type="button">Click here for Minimum Temperature</button>
+        </li>
+        <li id="humidity"><button type="button">Click here for Relative Humidity</button></li>
       </ul>
-      
     </div>
   </main>
   <footer>
-    <span id="current-year"></span>
+    <p>&copy;<span id ="current-year"></span> Maryzabeth Philip. All Rights Reserved. All Photos by Maryzabeth Philip</p>
+    <!-- <span id="current-year"></span> -->
   </footer>
   <script src = "js/index.js"></script>
 </body>
