@@ -56,7 +56,6 @@ nav a:hover, nav a:focus-visible {
 /* contact form styles  */
 #contact-form-section {
   background-color: #fffafc;
-
  }
 
 .form-group label{
@@ -179,10 +178,13 @@ header {
   font-size:12px;
   width: 80%;
   padding-left: 1em;
+  align-items: flex-start;
 }
+
 .header-logo {
   /* start column on left side of page */
   grid-column:1/2;
+  margin:0;
   justify-self: start;
   width:32px;
   height:32px;
@@ -281,7 +283,7 @@ article {
 .postcode-search-group {
   display: flex;
   gap: 0.5rem;
-  margin: 1 em auto;
+  padding: 0.2em;
   max-width: 400px;
 }
 .postcode-search-group input[type ="text"]{
@@ -293,10 +295,13 @@ article {
   flex-grow:1;
 }
 .postcode-search-group button {
+
   padding: 0.8em 1.2em;
   border: none;
   border-radius: 7px;
   cursor: pointer;
+  background-color: #A2BEA2;
+  color: black;
 }
 /*radio buttons for F and C temp units*/
 .radio-button-group {
@@ -311,12 +316,18 @@ article {
   padding: 0.625em 1.25em;
   border-radius: 8px;
   cursor:pointer;
+  background-color: #f7faff;
+  color: black;
 }
 .long-lat-button:disabled {
   cursor:default;
+  background-color:#f7f9fc;
+  font-weight: normal;
 }
 
 #weather-result button {
+  background-color: rgb(158, 158, 255);
+  color: rgb(0, 0, 0);
   padding: 0.5em 0.875em;
   border:none;
   border-radius:8px;
@@ -324,10 +335,8 @@ article {
   margin-top: .375em;
 }
 
-#weather-result li{
-  padding: 0.625em;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+#weather-result button:hover {
+  background-color: rgb(247, 180, 180);
 }
 
 #weather-result ul {
@@ -337,6 +346,23 @@ article {
   flex-direction: column;
   gap: 1em;
  }
+
+#weather-result li{
+  padding: 0.625em;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f7f7f7;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.temp-value {
+  font-weight: bold;
+  /* color:#b05c5c; */
+  color: rgb(19, 4, 4);
+  font-size: 1.2rem;
+}
+
 
 footer {
   text-align:center;
@@ -350,7 +376,8 @@ footer p {
 /* ---@media query Laptop screen minimum: 768px a */
 @media (min-width:768px) {
   .container {
-    max-width: 1300px;
+    /* max-width: 1300px; */
+    max-width: 1000px;
     padding: 0 40px;
   };
 
@@ -360,10 +387,10 @@ footer p {
   }
 
   h1{
-    font-size: 3em;
+    font-size: 2.1em;
   }
   h2{
-    font-size: 2.0em;
+    font-size: 1.7em;
   }
    /* Navigation */
   nav ul {
@@ -401,6 +428,21 @@ footer p {
   .recipe-text {
     order:1;
     margin-top:-21em;
+  }
+}
+/* for screens at least 1140px or bigger  */
+@media(min-width: 1140px){
+  main{
+    max-width: 1200px;
+    padding: 2em 3em;
+  }
+
+  h1{
+    font-size: 2.5em;
+  }
+
+  nav a{
+    padding: 0.7em 1.5em;
   }
 }
 
