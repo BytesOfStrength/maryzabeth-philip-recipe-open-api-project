@@ -97,6 +97,11 @@ function restartFetch() {
 /*====delete zipcode button===*/
 function deleteZipcode(){
   const postcodeInput = document.getElementById("postcode-input").value = "";
+  const displayCoordinatesDiv = document.getElementById("display-coordinates");
+  if(displayCoordinatesDiv){
+    displayCoordinatesDiv.innerHTML = " ";
+  }
+  // reset status
   const statusElement = document.getElementById("location-status");
   if(statusElement) {
     statusElement.classList.remove("status-error", "status-loading", "status-success");
@@ -104,13 +109,21 @@ function deleteZipcode(){
   } else {
     console.error("ID location-status not found");
   }
+  // re-enable zipcode search button /.postcode-search-group button
   document.querySelector(".postcode-search-group button").disabled = false;
+  restartFetch();
+  // reset the default settings for Towson,MD
+  const weatherTitleId = document.getElementById("weather-title");
+  if(weatherTitleId) {
+    currentLocalName = "Towson";
+    weatherTitleId.textContent = `Current Weather for ${currentLocalName}`;
+  }
 } 
 
 // ======fetch weather data===========
 /*1.asynch function about fetching geocode api  */ 
 async function fetchLocalCoordinates(postcode){
-  const geocodeUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${postcode}&count=1&language=en&format=json&countryCode=US`;
+  const geocodeUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${postcode}&count=5&language=en&format=json&countryCode=US`;
   try {
     const response = await fetch(geocodeUrl);
     if(!response.ok) {
@@ -118,20 +131,21 @@ async function fetchLocalCoordinates(postcode){
     }
     const data = await response.json();
     /********consider changing usaResult to zipcodeResult */
-    let usaResult =null;
-    // since I only want only one postal code, I will only look for first index response of data network
+    let bestZipResult =null;
     if(data.results && data.results.length>0) {
-      usaResult = data.results[0];
+      bestZipResult = data.results.find(result =>result.country_code==="US" && result.admin1);
+      if(!bestZipResult) {
+        bestZipResult=data.results[0];
+      }
     }
-
-    if(usaResult) {
-      console.log ("Successful response", usaResult)
+    if(bestZipResult) {
+      console.log ("Successful response", bestZipResult)
       console.log("Zipcode is:", postcode);
       
-      const name = `${usaResult.name || postcode}, ${usaResult.admin1 || "US"}`;
+      const name = `${bestZipResult.name || postcode}, ${bestZipResult.admin1 || "US"}`;
       return {
-        latitude: usaResult.latitude,
-        longitude: usaResult.longitude,
+        latitude: bestZipResult.latitude,
+        longitude: bestZipResult.longitude,
         name: name
       };
 // if user enters an invalid zipcode, this will catch an error
@@ -202,7 +216,7 @@ async function zipcodeSearch() {
       longLatButton.addEventListener("click",()=>{
         const longCoord = currentLongitude.toFixed(5);
         const latCoord = currentLatitude.toFixed(5);
-        longLatButton.textContent = `Longitude: ${longCoord},Latitude: ${latCoord}`;
+        longLatButton.textContent = `Longitude: ${longCoord}, Latitude: ${latCoord}`;
         longLatButton.disabled=true;
       });
       displayCoordinatesDiv.appendChild(longLatButton);
@@ -270,7 +284,7 @@ async function fetchTempAndHumidityData() {
         currentHumidity = relativeHumidityArray[currentHour];
     }
     
-    /***********Get console.log for max temp, min temp and symbold */
+    /***********Get console.log for max temp, min temp and symbol */
     console.log("Temperatures and Relative Humidity data:", data);
     console.log(`Today's max temp: ${maxTemp.toFixed(1)}${tempSymbol}`);
     console.log(`Today's min temp: ${minTemp.toFixed(1)}${tempSymbol}`);
@@ -372,93 +386,5 @@ function initializeApp () {
 
   }
 }
-// put in an event handler to load all pages then start function initializeApp after all pages have loaded. Do not say window.onload = initializeApp(); because the function will load before all pages have loaded
-
+// put in an event handler to load all pages then start function initializeApp after all pages have loaded. 
 window.onload = initializeApp; 
-
-   
-// fetch(
-//   "https://api.open-meteo.com/v1/forecast?latitude=39.4015&longitude=-76.6019&daily=temperature_2m_max,temperature_2m_min&timezone=America%2FNew_York&forecast_days=1&temperature_unit=fahrenheit"
-// )
-  // // GET the response
-  // .then((response) => {
-  //   if (!response.ok) {
-  //     throw new Error("Request Failed");
-  //   }
-  //   //Parse response as JSON don't use JSON.Parse
-  //   return response.json();
-  // })
-  // // Get data as in the information from  html doc
-  // .then((weatherData) => {
-  //   console.log("weatherData", weatherData);
-  //   // exract weatherData temperature
-  //   const maxTemp = weatherData.daily.temperature_2m_max[0];
-  //   console.log(`Maximum Temperature Today is: ${maxTemp}°F`);
-  //   const minTemp = weatherData.daily.temperature_2m_min[0];
-  //   console.log(`Minimum Temperature Today is: ${minTemp}°F`);
-  //   const maxTempListItem = document.getElementById("max-temp");
-  //   if (maxTempListItem) {
-  //     maxTempListItem.innerHTML = `Maximum Temperature Today is: ${maxTemp}°F`;
-  //   }
-  //   const minTempListItem = document.getElementById("min-temp");
-  //   if (minTempListItem) {
-  //     minTempListItem.innerHTML = `Minimum Temperature Today is: ${minTemp}°F`;
-  //   }
-  // });
-/* 1.TODO: run asyn and await to make asynchronous code run 
-asynch function fetchRelativeHumiditydata() {
-  console.log ('Fetching hourly relative humidity data');
-  // set current hour since relative humidity is collected hourly
-
-  const currentHour= new Date().getHours();
-  try [ 
-    const response = await fetch("https://api.open-meteo.com/v1/forecast?latitude=39.4015&longitude=-76.6019&hourly=relative_humidity_2m&timezone=America%2FNew_York&forecast_days=1&temperature_unit=fahrenheit");
-
-  if (!response.ok) {
-      throw new Error('Relative Humidity Request failed'$response.status);
-    }
-    
-  const humidityData = await response.json();
-  // when JSOn parses the data it looks like an array
-
-  console.log("Hourly Humidity Data", humidityData);
-  const relativeHumidityArray = humidityData.hourly.relative_humidity_2m;
-  
-  if(currentHour < relativeHumidityArray.length) {
-    const relativHumidityNow = relativeHumidityArray[currentHour];
-
-    const currentTime = humidityData.hourly.time[currentHour]
-  }
-  
-  } catch (error) {
-    console.error('An error occurred:', error);
-  }
-}
-
-fetch("https://api.open-meteo.com/v1/forecast?latitude=39.4015&longitude=-76.6019&hourly=relative_humidity_2m&timezone=America%2FNew_York&forecast_days=1&temperature_unit=fahrenheit")
-  // GET the response
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error("Request Failed");
-    }
-    //Parse response as JSON don't use JSON.Parse
-    return response.json();
-  })
-  // Get data as in the information from  html doc
-  .then((weatherCodeData) => {
-    console.log("weatherCodeData", weatherCodeData);
-    const weatherCodeInfo = weatherCodeData.hourly.relative_humidity_2m[i];
-    console.log(`Relative Humdity by Noon: ${weatherCodeInfo}%`);
-    const weatherCodeInfoItem = document.getElementById("humidity");
-    if (weatherCodeInfoItem) {
-    weatherCodeInfoItem.innerHTML = `Relative Humidity by Noon: ${weatherCodeInfo}%`;
-    }
-
-  });*/
-// exract weatherCodeData weather code
-// let footer = document.querySelector("footer");
-// let today = new Date().getFullYear();
-// let copyright = document.createElement("p");
-// copyright.innerHTML = `\u00A9 ${today} Maryzabeth Philip. All Rights Reserved. All Photos by Maryzabeth Philip`;
-// footer.appendChild(copyright);
-// footer.style.textAlign = "center";

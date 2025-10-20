@@ -5,7 +5,7 @@
 body {
   font-family: sans-serif;
   font-size:15px;
-  background-color: #FFFAFA;
+/* background-color: #FFFAFA; */
   background-color: aliceblue;
   color:#334C33;
   
@@ -20,6 +20,11 @@ a:hover {
   text-decoration: underline;
   color: rgb(239, 206, 212);
 }
+
+h1 {
+  font-size:1.75rem;
+}
+
 
 h2,h3, h4 {
   color:#334C33;
@@ -69,7 +74,7 @@ nav a:hover, nav a:focus-visible {
   background-color: #E66A6A;
 }
 .recipe-paragraph{
-  font-size: 0.8em;
+  font-size: 0.85em;
 }
 
 .postcode-search-group button {

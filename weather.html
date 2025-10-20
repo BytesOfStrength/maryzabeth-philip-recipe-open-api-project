@@ -29,24 +29,29 @@
     <p>
       Ginger will share the current weather for today. Click below on one of the weather variables for the weather in Towson, MD. To personalize your recipe selection, you will need to consider your local weather conditions. Remember, your current weather conditions are important! If it's too hot, your chocolate treats may melt quickly. Ginger wants these recipes to be fun, not messy 😀
     </p>
+    <!--Instructions for using weather application-->
     <p>Here's how to get your custom details: 
       <ul>
-        <li>Enter your zipcode and click the "Find Location Coordinates" button </li>
-        <li>Then you can click the "Coordinates" button to see your coordinates.</li>
-        <li>Then click each of the three buttons (Minimum Temperature, Maximum Temperature, Relative Humidity) for local weather information to customize your project</li>
+        <li>Enter your zipcode and click the "Find Location" button </li>
+        <li>A "Coordinates" button will appear. Click the "Coordinates" button to view your zipcode's coordinates.</li>
+        <li>You may then choose to have your temperature displayed in Fahrenheit or Celsius. The default is Fahrenheit.</li>
+        <li>Then click each of the three buttons (Minimum Temperature, Maximum Temperature, Relative Humidity) for local weather information to customize your recipe choice</li>
       </ul>
     </p>
+    <!-- buttons for display for zipcodesearch, deleting a zipcode-->
+  <!--add radio buttons to change units of weather between Farenheit and Celsius  -->
     <div class="postcode-search-group">
-      <input type ="text" id = "postcode-input" placeholder="Enter your zipcode" maxlength = "5">
-      <button type = "button" onclick="zipcodeSearch()">Find Location Coordinates</button>
+      <input type ="text" id = "postcode-input" placeholder="Enter zipcode" maxlength = "5">
+      <button type = "button" onclick="zipcodeSearch()">Find Location</button>
       <button type = "button" onclick="deleteZipcode()">Delete Zipcode</button>
     </div>
     <p id = "location-status" class = "status-message">Default location is Towson, MD. Please enter a zipcode to begin</p>
     <div id="display-coordinates"></div>
     <div class = "weather-unit-button-section">
+ <!-- Choose Temperatur units of measurement -->
       <h3>Preferred Temperature Unit</h3>
       <div id="temp-unit-selection" class = "radio-button-group">
-        <!-- Farenheit button. Default is in Farenheit but also can switch to Celsius if user prefers -->
+        <!-- Farenheit button. Default is in Farenheit but user also can switch to Celsius if user prefers -->
         <input type="radio" id="fahrenheit-unit" name="temperature_unit" value="fahrenheit" checked class="hidden" onchange = "restartFetch()">
         <label for="fahrenheit-unit" class="unit-label">Fahrenheit (°F)</label><br>
         <!-- Celsius button.  -->
@@ -69,8 +74,8 @@
     </div>
   </main>
   <footer>
+    <!--copyright in footer  -->
     <p>&copy;<span id ="current-year"></span> Maryzabeth Philip. All Rights Reserved. All Photos by Maryzabeth Philip</p>
-    <!-- <span id="current-year"></span> -->
   </footer>
   <script src = "js/index.js"></script>
 </body>
